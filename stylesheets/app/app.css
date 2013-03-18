@@ -1,6 +1,7 @@
 body {
   font-family: 'Oxygen', sans-serif;
   background: #d5d2ff;
+  text-align: center;
 }
 
 .tabs {
@@ -32,21 +33,38 @@ body {
 
 
 .left {
+  text-align: left; 
     background-color: #eeeeee;
     float: left;
-    outline: 1px solid white;
-    width: 40%;
+    //outline: 1px solid white;
+    width: 70%;
     margin:4px 20px;
     padding: 0 0 0 10px;
+    opacity:0.8;
 }
 
 .right {
+  text-align: left;
+  border-radius: 15px;
     background-color: #dddddd;
-    outline: 1px solid white;
+    //outline: 1px solid white;
     margin:8px 5px;
-    margin-left: 40%;
+    margin-left: 20%;
+    padding: 2px 5px 0 0;
+    //opacity:0.8;
 }
 
-#toDo .left {
- 
+.content {
+  width: 800px;
+  margin: 0 auto;
+}
+
+.right .cats{
+  text-align: right;
+  font-style: italic;
+}
+
+#tab2 h3{
+  text-align: left; 
+  
 }

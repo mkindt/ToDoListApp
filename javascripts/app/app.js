@@ -16,10 +16,17 @@ var main = function () {
     });    
   };
   
+    var deleteButton = (function() {
+    $( "button" )
+      .click(function() {
+        $(this).parent().parent().remove();
+      });
+  });
+  
   $("#toDo").children().each(function () {
     var listClasses = $(this).attr("class").split(" ");
     //listClasses.splice(0,1);
-    $(this).append("<div class = 'right cats'>   --Categories: " + listClasses + "</div>");
+    $(this).append("<div class = 'right'><button>Delete</button><div class = 'cats'>" + listClasses + "</div></div>");
   });
 
   function categorize() {
@@ -36,7 +43,8 @@ var main = function () {
     console.log("singles? " + allCategories);
     $("#tab2").empty();
     $(allCategories).each(function() {
-      $("#tab2").append("<h1> Category: " + this + "</h1>");
+      var showCat = this.toUpperCase();
+      $("#tab2").append("<h3>" + showCat + "</h3>");
       $("#toDo").find($("." +this)).clone().appendTo("#tab2");
     })
   }
@@ -58,6 +66,7 @@ var main = function () {
   
   console.log("about to set up click handlers");
   setUpClickHandler($(".tabs .tab"));
+  deleteButton();
 }
 
 $(document).ready(main);
