@@ -8,17 +8,31 @@ var main = function () {
       $(".active").removeClass("active");
       $(this).addClass("active");
       $("#"+target).addClass("active");
-    
+      //$("#tab2").
+      if (target === "tab2") {
+        categorize();
+      }
       return false;
     });    
   };
   
-  $(".toDo").children().each(function () {
-     var listClasses = $(this).attr("class").split(" ");
-     $(this).append("   --Categories: " + listClasses);
+  $("#toDo").children().each(function () {
+    var listClasses = $(this).attr("class").split(" ");
+    $(this).append("   --Categories: " + listClasses);
   });
 
-  
+  function categorize() {
+    var allCategories = new Array;
+    $("#toDo").children().each(function () {
+      var listClasses = $(this).attr("class").split(" ");
+      console.log(listClasses);
+      allCategories = allCategories.concat(listClasses);
+    });
+    //$.unique(allCategories);
+    allCategories.sort();
+    $.unique(allCategories);
+    console.log("singles? " + allCategories);
+  }
   
   
   var setUpJSONTab = function (tab) {
