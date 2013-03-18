@@ -18,7 +18,8 @@ var main = function () {
   
   $("#toDo").children().each(function () {
     var listClasses = $(this).attr("class").split(" ");
-    $(this).append("   --Categories: " + listClasses);
+    //listClasses.splice(0,1);
+    $(this).append("<div class = 'right cats'>   --Categories: " + listClasses + "</div>");
   });
 
   function categorize() {
@@ -33,6 +34,7 @@ var main = function () {
     allCategories.sort();
     $.unique(allCategories);
     console.log("singles? " + allCategories);
+    $("#tab2").empty();
     $(allCategories).each(function() {
       $("#tab2").append("<h1> Category: " + this + "</h1>");
       $("#toDo").find($("." +this)).clone().appendTo("#tab2");
