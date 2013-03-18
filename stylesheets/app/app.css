@@ -1,3 +1,8 @@
+body {
+  font-family: 'Oxygen', sans-serif;
+  background: #d5d2ff;
+}
+
 .tabs {
   margin-top: 50px;
   margin-bottom:20px;
@@ -20,19 +25,28 @@
 
 .content .active {
   display: block;
-  background: cyan;
+  background: #d5d2ff;
 }
 
 
 
 
 .left {
-    background-color: Red;
+    background-color: #eeeeee;
     float: left;
-    width: 50%;
+    outline: 1px solid white;
+    width: 40%;
+    margin:4px 20px;
+    padding: 0 0 0 10px;
 }
 
 .right {
-    background-color: Aqua;
-    margin-left: 50%;
+    background-color: #dddddd;
+    outline: 1px solid white;
+    margin:8px 5px;
+    margin-left: 40%;
+}
+
+#toDo .left {
+ 
 }
