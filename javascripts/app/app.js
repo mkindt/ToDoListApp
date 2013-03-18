@@ -23,6 +23,7 @@ var main = function () {
 
   function categorize() {
     var allCategories = new Array;
+    var foundToDo = new Array;
     $("#toDo").children().each(function () {
       var listClasses = $(this).attr("class").split(" ");
       console.log(listClasses);
@@ -32,7 +33,12 @@ var main = function () {
     allCategories.sort();
     $.unique(allCategories);
     console.log("singles? " + allCategories);
+    $(allCategories).each(function() {
+      $("#tab2").append("<h1> Category: " + this + "</h1>");
+      $("#toDo").find($("." +this)).clone().appendTo("#tab2");
+    })
   }
+
   
   
   var setUpJSONTab = function (tab) {
