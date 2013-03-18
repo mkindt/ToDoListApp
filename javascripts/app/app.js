@@ -13,6 +13,14 @@ var main = function () {
     });    
   };
   
+  $(".toDo").children().each(function () {
+     var listClasses = $(this).attr("class").split(" ");
+     $(this).append("   --Categories: " + listClasses);
+  });
+
+  
+  
+  
   var setUpJSONTab = function (tab) {
     var tab_a = $("<a>"+tab.title+"</a>").addClass("tab").attr("href", tab.title);
     $(".tabs").append(tab_a);
