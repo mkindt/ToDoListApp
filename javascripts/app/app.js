@@ -9,18 +9,27 @@ var main = function () {
       $(this).addClass("active");
       $("#"+target).addClass("active");
       //$("#tab2").
+      console.log("hrmm " + target);
       if (target === "tab2") {
         categorize();
       }
       return false;
     });    
   };
-  
+  var deleteTab1 = new Array;
     var deleteButton = (function() {
     $( "button" )
       .click(function() {
-        $(this).parent().parent().remove();
+        deleteTab1 = $(this).parent().siblings().attr("class").split(" ");
+        deleteTab1.splice(0,1);
+        //$(this).parent().parent().remove();
+        $("#tab1").find("." +deleteTab1).parent().remove();
+        console.log("got hre " +deleteTab1);
+        categorize();
+        return false;
       });
+           
+          
   });
   
   $("#toDo").children().each(function () {
@@ -46,6 +55,7 @@ var main = function () {
       var showCat = this.toUpperCase();
       $("#tab2").append("<h3>" + showCat + "</h3>");
       $("#toDo").find($("." +this)).clone().appendTo("#tab2");
+      deleteButton(); //bad form to call each time?
     })
   }
 
