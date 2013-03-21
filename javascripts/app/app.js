@@ -1,6 +1,6 @@
 var main = function () {
   console.log("hello world!");
-  
+  var toDoItems = 6;
   var setUpClickHandler = function (anchor) {
     anchor.click(function () {
       var target = $(this).attr("href");
@@ -17,25 +17,39 @@ var main = function () {
     });    
   };
   var deleteTab1 = new Array;
-    var deleteButton = (function() {
-    $( "button" )
-      .click(function() {
-        deleteTab1 = $(this).parent().siblings().attr("class").split(" ");
-        deleteTab1.splice(0,1);
-        //$(this).parent().parent().remove();
-        $("#tab1").find("." +deleteTab1).parent().remove();
-        console.log("got hre " +deleteTab1);
+  var deleteButton = (function() {
+    $(".deleter").click(function() { 
+      deleteTab1 = $(this).parent().attr("class").split(" ");
+      deleteTab1.splice(0,1);
+      //$(this).parent().parent().remove();
+      $("#tab1").find("." +deleteTab1).parent().remove();
+      console.log("got hre " +deleteTab1);
+      //if (typeof target !== "undefined") {
         categorize();
-        return false;
-      });
-           
-          
+      //}
+      return false;
+    });     
   });
+  
+  var submitButton = (function() {
+    $( "#newEdit" )
+      .click(function() {
+        console.log($("#newToDo").val());
+        console.log($("#newCats").val());
+        var listClasses = $("#newCats").val().split(",");
+        var newItem = $("#newToDo").val();
+        toDoItems = toDoItems + 1;
+        $("#toDo").append("<div class='" + listClasses.join(' ') + "'><div class='left toDoItem" + toDoItems +"'>" + newItem + "<input name='submit' type='image' class = 'deleter' src='images/delete-icon.png'/></div><div class = 'right'><div class = 'cats'>"+ listClasses + "</div></div></div>");
+        return false;
+      });     
+  });
+  
   
   $("#toDo").children().each(function () {
     var listClasses = $(this).attr("class").split(" ");
     //listClasses.splice(0,1);
-    $(this).append("<div class = 'right'><button>Delete</button><div class = 'cats'>" + listClasses + "</div></div>");
+    $(this).children().append("<input name='submit' type='image' class = 'deleter' src='images/delete-icon.png'/>");
+    $(this).append("<div class = 'right'><div class = 'cats'>" + listClasses + "</div></div>");
   });
 
   function categorize() {
@@ -56,8 +70,8 @@ var main = function () {
       $("#tab2").append("<h3>" + showCat + "</h3>");
       $("#toDo").find($("." +this)).clone().appendTo("#tab2");
       deleteButton(); //bad form to call each time?
-    })
-  }
+    });
+  };
 
   
   
@@ -77,6 +91,7 @@ var main = function () {
   console.log("about to set up click handlers");
   setUpClickHandler($(".tabs .tab"));
   deleteButton();
+  submitButton();
 }
 
 $(document).ready(main);
