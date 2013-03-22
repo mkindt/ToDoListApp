@@ -28,11 +28,13 @@ var main = function () {
       deleteTab1 = $(this).parent().attr("class").split(" ");
       deleteTab1.splice(0,1);
       //$(this).parent().parent().remove();
-      $("#tab1").find("." +deleteTab1).parent().remove();
+      $("#tab1").find("." +deleteTab1).parent().hide("scale", function() {
+        $("#tab1").find("." +deleteTab1).parent().remove();
+      });
       console.log("got hre " +deleteTab1);
-      if (tabCheck === 1) {
+      //if (tabCheck === 1) {
         categorize();
-      }
+      //}
       return false;
     });     
   });
@@ -46,6 +48,7 @@ var main = function () {
         var newItem = $("#newToDo").val();
         toDoItems = toDoItems + 1;
         $("#toDo").append("<div class='" + listClasses.join(' ') + "'><div class='left toDoItem" + toDoItems +"'>" + newItem + "<input name='submit' type='image' class = 'deleter' src='images/delete-icon.png'/></div><div class = 'right'><div class = 'cats'>"+ listClasses + "</div></div></div>");
+        $("#tab3").append("<div>'" + newItem + "' added.</div>");
         deleteButton();
         return false;
       });     
@@ -78,50 +81,25 @@ var main = function () {
   };
 
   
-  var ughh = $.getJSON("json/all.json", function (todos) {
-    var i;
-    for (i = 0; i < todos.length; i++) {
-      console.log(todos[i]);
-    };
-    
+  $.getJSON("json/all.json", function (todos) {
     todos.forEach(function (todo) {
-      console.log(todo.description);
       toDoItems = toDoItems + 1;
       $("#toDo").append("<div class='" + todo.categories.join(' ') + "' style = 'display:none'><div class='left toDoItem" + toDoItems +"'>" + todo.description + "<input name='submit' type='image' class = 'deleter' src='images/delete-icon.png'/></div><div class = 'right'><div class = 'cats'>" + todo.categories + "</div></div></div>");
-      todo.categories.forEach(function (category) {
-        console.log("  " + category);
-      });
       $("#toDo").children().slideDown(1000);
-      deleteButton();
     });
+    deleteButton();
   });
   
-  var gosh = $("#toDo").children().each(function () {
+  $("#toDo").children().each(function () {
     var listClasses = $(this).attr("class").split(" ");
-    //listClasses.splice(0,1);
     $(this).css("display", "none");
     $(this).children().append("<input name='submit' type='image' class = 'deleter' src='images/delete-icon.png'/>");
     $(this).append("<div class = 'right'><div class = 'cats'>" + listClasses + "</div></div>");
     $(this).slideDown(1000);
   });
-  
-  var setUpJSONTab = function (tab) {
-    var tab_a = $("<a>"+tab.title+"</a>").addClass("tab").attr("href", tab.title);
-    $(".tabs").append(tab_a);
-    
-    var content = $("<div>"+tab.content+"</div>").addClass("tab").attr("id",tab.title);
-    $(".content").append(content);
-    setUpClickHandler(tab_a);    
-  };
 
-  $.getJSON("tabs/tab1.json", setUpJSONTab);
-  $.getJSON("tabs/tab2.json", setUpJSONTab);  
-  $.getJSON("tabs/tab3.json", setUpJSONTab);  
-  
   console.log("about to set up click handlers");
   setUpClickHandler($(".tabs .tab"));
-  gosh();
-  ughh();
   deleteButton();
   submitButton();
 }
